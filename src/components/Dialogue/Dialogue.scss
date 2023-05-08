@@ -1,0 +1,42 @@
+.dialogue {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.dialogue_message-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dialogue_buttons-wrapper {
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.dialogue_button-yes {
+  padding: 5px 20px;
+  background: red;
+  color: white;
+  margin-right: 1em;
+  border: none;
+  cursor: pointer;
+}
+
+.dialogue_button-no {
+  padding: 5px 20px;
+  background: green;
+  color: white;
+  border: none;
+  cursor: pointer;
+}

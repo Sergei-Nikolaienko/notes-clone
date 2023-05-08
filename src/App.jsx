@@ -6,11 +6,13 @@ import "./App.scss";
 import Header from "./components/Header/Header";
 import Workspace from "./components/Workspace/Workspace";
 import Sidebar from "./components/Sidebar/Sidebar";
+import Dialogue from "./components/Dialogue/Dialogue";
 
 function App() {
   const [notes, setNotes] = useState([]);
   const [selectedNote, setSelectedNote] = useState(false);
   const [allowEdit, setAllowEdit] = useState(false);
+  const [dialogue, setDialogue] = useState(false);
 
   const onAddNote = () => {
     const newNote = {
@@ -24,6 +26,10 @@ function App() {
   };
 
   const onDeleteNote = (selectedNote) => {
+    setDialogue(true);
+  };
+
+  const handleDeleteNote = (selectedNote) => {
     setNotes(notes.filter((note) => note.id !== selectedNote));
     setSelectedNote(false);
   };
@@ -65,6 +71,13 @@ function App() {
           noteToEdit={getSelectedNote()}
           allowEdit={allowEdit}
         />
+        {dialogue && (
+          <Dialogue
+            selectedNote={selectedNote}
+            setDialogue={setDialogue}
+            handleDeleteNote={handleDeleteNote}
+          />
+        )}
       </main>
     </div>
   );
