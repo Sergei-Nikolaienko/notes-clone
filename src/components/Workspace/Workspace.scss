@@ -1,9 +1,22 @@
 .workspace-area {
+  width: 60%;
+  height: 100vh;
   text-align: center;
   padding: 1em 2em;
+
 }
 
 .input-field {
   width: 100%;
   margin-bottom: 1em;
+}
+
+.note-body {
+  text-align: center;
+}
+
+@media (min-width: 800px) {
+  .workspace-area {
+    width: 70%;
+  }
 }

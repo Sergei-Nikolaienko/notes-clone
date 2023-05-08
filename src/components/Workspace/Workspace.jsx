@@ -1,15 +1,13 @@
 import "./Workspace.scss";
 
-const Workspace = ({ noteToEdit, onEditNote }) => {
+const Workspace = ({ onEditNote, noteToEdit }) => {
   if (!noteToEdit) {
-    return (
-      <strong className="workspace-area">Add and select a Note to edit</strong>
-    );
+    return <strong className="workspace-area">Select a Note to view</strong>;
   }
 
   const onEditField = (key, value) => {
     onEditNote({
-      id: noteToEdit.id,
+      ...noteToEdit,
       [key]: value,
       meta: Date.now(),
     });
@@ -17,25 +15,30 @@ const Workspace = ({ noteToEdit, onEditNote }) => {
 
   return (
     <div className="workspace-area">
-      <div>{new Date().toLocaleString()}</div>
-      <div className="title-input">
-        <input
-          className="input-field"
-          id="note-title"
-          value={noteToEdit.title}
-          type="text"
-          onChange={(e) => onEditField("title", e.target.value)}
-          autoFocus
-        />
-      </div>
-      <div className="text-input">
-        <textarea
-          className="input-field"
-          id="note-text"
-          rows="5"
-          value={noteToEdit.text}
-          onChange={(e) => onEditField("text", e.target.value)}
-        />
+      <section className="edit-field">
+        <div>{new Date().toLocaleString()}</div>
+        <div className="title-input">
+          <input
+            autoFocus
+            className="input-field"
+            value={noteToEdit.title}
+            type="text"
+            onChange={(e) => onEditField("title", e.target.value)}
+          />
+        </div>
+        <div className="text-input">
+          <textarea
+            className="input-field"
+            rows="5"
+            value={noteToEdit.text}
+            onChange={(e) => onEditField("text", e.target.value)}
+          />
+        </div>
+      </section>
+
+      <div className="note-body">
+        <h1>{noteToEdit.title}</h1>
+        <p>{noteToEdit.text}</p>
       </div>
     </div>
   );

@@ -1,6 +1,9 @@
 .sidebar {
+  width: 40%;
   padding: 1em 2em;
-  height: 100vh;
+  height: calc(100vh - 80px);
+  overflow-y: scroll;
+  border-right: 1px solid #ddd;
 }
 
 .note-preview {
@@ -18,8 +21,23 @@
   color: white;
 }
 
+.preview-title {
+  text-align: center;
+  margin-bottom: .5em;
+}
+
 .preview-text-wrapper {
-  display: grid;
-  gap: 10px;
-  grid-template-columns: 2fr 3fr;
+  display: flex;
+  gap: 5px;
+  justify-content: space-between;
+}
+
+.preview-text-content {
+  font-size: .8rem;
+}
+
+@media (min-width: 800px) {
+  .sidebar {
+    width: 30%;
+  }
 }

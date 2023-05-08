@@ -9,13 +9,12 @@ const Sidebar = ({ notes, setSelectedNote, selectedNote }) => {
           className={`note-preview ${note.id === selectedNote && "active"} `}
           onClick={() => setSelectedNote(note.id)}
         >
-          <strong>{note.title}</strong>
+          <div className="preview-title">
+            <strong>{note.title.substr(0, 20)}</strong>
+          </div>
           <div className="preview-text-wrapper">
             <small className="preview-meta-content">
-              {new Date(note.meta).toLocaleDateString("en-GB", {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
+              {new Date(note.meta).toLocaleDateString("en-GB")}
             </small>
             <p className="preview-text-content">
               {note.text && note.text.substr(0, 20) + "..."}
