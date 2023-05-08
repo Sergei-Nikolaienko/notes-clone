@@ -14,9 +14,22 @@
   width: 50px;
   margin-right: .5em;
   border-radius: .5em;
+
+  &:hover {
+    color: white;
+    background: rgb(172, 18, 18);
+    
+    &:disabled {
+        background: rgb(212, 170, 170);
+    }
+  }
 }
 
 .searchbar {
   border-radius: .5em;
+  padding: 0 .5em;
+}
+
+::-webkit-input-placeholder {
   text-align: center;
 }

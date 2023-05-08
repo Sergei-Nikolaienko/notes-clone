@@ -1,15 +1,28 @@
 import "./Sidebar.scss";
 
-const Sidebar = () => {
+const Sidebar = ({ notes, setSelectedNote, selectedNote }) => {
   return (
     <div className="sidebar">
-      <div className="note-preview">
-        <strong>Title</strong>
-        <div className="preview-text-wrapper">
-          <p className="preview-date-content">{new Date().toDateString()}</p>
-          <p className="preview-text-content">Lorem ipsum...</p>
+      {notes.map((note) => (
+        <div
+          key={note.id}
+          className={`note-preview ${note.id === selectedNote && "active"} `}
+          onClick={() => setSelectedNote(note.id)}
+        >
+          <strong>{note.title}</strong>
+          <div className="preview-text-wrapper">
+            <small className="preview-meta-content">
+              {new Date(note.meta).toLocaleDateString("en-GB", {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </small>
+            <p className="preview-text-content">
+              {note.text && note.text.substr(0, 20) + "..."}
+            </p>
+          </div>
         </div>
-      </div>
+      ))}
     </div>
   );
 };

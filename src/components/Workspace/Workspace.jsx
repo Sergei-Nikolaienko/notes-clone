@@ -1,16 +1,41 @@
 import "./Workspace.scss";
 
-const Workspace = () => {
+const Workspace = ({ noteToEdit, onEditNote }) => {
+  if (!noteToEdit) {
+    return (
+      <strong className="workspace-area">Add and select a Note to edit</strong>
+    );
+  }
+
+  const onEditField = (key, value) => {
+    onEditNote({
+      id: noteToEdit.id,
+      [key]: value,
+      meta: Date.now(),
+    });
+  };
+
   return (
-    <div className="main-area">
-      <div>{new Date().toUTCString()}</div>
+    <div className="workspace-area">
+      <div>{new Date().toLocaleString()}</div>
       <div className="title-input">
-        <label htmlFor="note-title"></label>
-        <input className="input-field" id="note-title" type="text" />
+        <input
+          className="input-field"
+          id="note-title"
+          value={noteToEdit.title}
+          type="text"
+          onChange={(e) => onEditField("title", e.target.value)}
+          autoFocus
+        />
       </div>
       <div className="text-input">
-        <label htmlFor="note-text"></label>
-        <textarea className="input-field" id="note-text" type="text" />
+        <textarea
+          className="input-field"
+          id="note-text"
+          rows="5"
+          value={noteToEdit.text}
+          onChange={(e) => onEditField("text", e.target.value)}
+        />
       </div>
     </div>
   );

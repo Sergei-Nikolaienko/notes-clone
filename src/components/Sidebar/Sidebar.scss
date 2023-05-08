@@ -4,11 +4,18 @@
 }
 
 .note-preview {
-  padding: 1em 1em 0em;
+  padding: 1em 1em;
   border-bottom: 1px solid grey;
+
   &:hover {
+    cursor: pointer;
     background-color: rgb(224, 221, 221);
   }
+}
+
+.note-preview.active {
+  background: #08c;
+  color: white;
 }
 
 .preview-text-wrapper {
