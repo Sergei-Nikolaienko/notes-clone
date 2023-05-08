@@ -10,6 +10,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 function App() {
   const [notes, setNotes] = useState([]);
   const [selectedNote, setSelectedNote] = useState(false);
+  const [allowEdit, setAllowEdit] = useState(false);
 
   const onAddNote = () => {
     const newNote = {
@@ -24,7 +25,6 @@ function App() {
 
   const onDeleteNote = (selectedNote) => {
     setNotes(notes.filter((note) => note.id !== selectedNote));
-    console.log("deleted");
     setSelectedNote(false);
   };
 
@@ -50,14 +50,21 @@ function App() {
         onAddNote={onAddNote}
         onDeleteNote={onDeleteNote}
         selectedNote={selectedNote}
+        allowEdit={allowEdit}
+        setAllowEdit={setAllowEdit}
       />
       <main className="main-content">
         <Sidebar
           notes={notes}
           selectedNote={selectedNote}
           setSelectedNote={setSelectedNote}
+          setAllowEdit={setAllowEdit}
         />
-        <Workspace onEditNote={onEditNote} noteToEdit={getSelectedNote()} />
+        <Workspace
+          onEditNote={onEditNote}
+          noteToEdit={getSelectedNote()}
+          allowEdit={allowEdit}
+        />
       </main>
     </div>
   );

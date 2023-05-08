@@ -1,13 +1,16 @@
 import "./Sidebar.scss";
 
-const Sidebar = ({ notes, setSelectedNote, selectedNote }) => {
+const Sidebar = ({ notes, setSelectedNote, selectedNote, setAllowEdit }) => {
   return (
     <div className="sidebar">
       {notes.map((note) => (
         <div
           key={note.id}
           className={`note-preview ${note.id === selectedNote && "active"} `}
-          onClick={() => setSelectedNote(note.id)}
+          onClick={() => {
+            setSelectedNote(note.id);
+            setAllowEdit(false);
+          }}
         >
           <div className="preview-title">
             <strong>{note.title.substr(0, 20)}</strong>

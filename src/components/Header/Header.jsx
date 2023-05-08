@@ -5,7 +5,13 @@ import {
   MdEditNote,
 } from "react-icons/md";
 
-const Header = ({ onAddNote, onDeleteNote, selectedNote }) => {
+const Header = ({
+  onAddNote,
+  onDeleteNote,
+  selectedNote,
+  allowEdit,
+  setAllowEdit,
+}) => {
   return (
     <header className="header">
       <div className="buttons-container">
@@ -21,7 +27,11 @@ const Header = ({ onAddNote, onDeleteNote, selectedNote }) => {
         >
           <MdOutlineDeleteForever />
         </button>
-        <button className="header__button" disabled={!selectedNote}>
+        <button
+          className="header__button"
+          disabled={!selectedNote}
+          onClick={() => setAllowEdit(!allowEdit)}
+        >
           <MdEditNote />
         </button>
       </div>
