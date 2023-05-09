@@ -1,5 +1,6 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import uuid from "react-uuid";
+import Localbase from "localbase";
 
 import "./App.scss";
 
@@ -14,6 +15,16 @@ function App() {
   const [allowEdit, setAllowEdit] = useState(false);
   const [dialogue, setDialogue] = useState(false);
   const [query, setQuery] = useState("");
+
+  let db = new Localbase("db");
+
+  useEffect(() => {
+    db.collection("notes")
+      .get()
+      .then((notes) => {
+        setNotes(notes);
+      });
+  }, []);
 
   const getVisibleNotes = () => {
     return notes.filter(
@@ -31,32 +42,24 @@ function App() {
       text: "",
     };
 
-    setNotes([newNote, ...notes]);
+    db.collection("notes").add(newNote);
   };
 
-  const onDeleteNote = (selectedNote) => {
+  const onDeleteNote = () => {
     setDialogue(true); //confirmation of deletion
   };
 
   const handleDeleteNote = (selectedNote) => {
-    setNotes(notes.filter((note) => note.id !== selectedNote));
+    db.collection("notes").doc({ id: selectedNote }).delete();
     setSelectedNote(false);
   };
 
   const onEditNote = (editedNote) => {
-    const updatedNotesArray = notes.map((note) => {
-      if (note.id === selectedNote) {
-        return editedNote;
-      }
-
-      return note;
-    });
-
-    setNotes(updatedNotesArray);
+    // db.collection("notes").doc({ id: editedNote.id }).set(editedNote);
   };
 
   const getSelectedNote = () => {
-    return notes.find((note) => note.id === selectedNote); //selecting active note to pass to workspace
+    return notes.find((note) => note.id === selectedNote); //selecting active note to be passed to workspace
   };
 
   const reset = useCallback(() => {
