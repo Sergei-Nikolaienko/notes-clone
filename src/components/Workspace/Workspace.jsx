@@ -1,6 +1,7 @@
+import React from "react";
 import "./Workspace.scss";
 
-const Workspace = ({ onEditNote, noteToEdit, allowEdit }) => {
+const Workspace = React.memo(({ onEditNote, noteToEdit, allowEdit }) => {
   if (!noteToEdit) {
     return <strong className="workspace-area">Select a Note to view</strong>;
   }
@@ -37,6 +38,6 @@ const Workspace = ({ onEditNote, noteToEdit, allowEdit }) => {
       </div>
     </div>
   );
-};
+});
 
 export default Workspace;

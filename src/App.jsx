@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo, useCallback } from "react";
 import uuid from "react-uuid";
 
 import "./App.scss";
@@ -21,7 +21,7 @@ function App() {
     );
   };
 
-  const visibleNotes = getVisibleNotes();
+  const visibleNotes = useMemo(getVisibleNotes, [notes, query]);
 
   const onAddNote = () => {
     const newNote = {
@@ -59,6 +59,10 @@ function App() {
     return notes.find((note) => note.id === selectedNote); //selecting active note to pass to workspace
   };
 
+  const reset = useCallback(() => {
+    setQuery("");
+  }, []);
+
   return (
     <div className="App">
       <Header
@@ -67,7 +71,9 @@ function App() {
         selectedNote={selectedNote}
         allowEdit={allowEdit}
         setAllowEdit={setAllowEdit}
+        query={query}
         setQuery={setQuery}
+        onReset={reset}
       />
       <main className="main-content">
         <Sidebar
