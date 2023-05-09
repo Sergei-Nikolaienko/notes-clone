@@ -13,12 +13,21 @@ function App() {
   const [selectedNote, setSelectedNote] = useState(false);
   const [allowEdit, setAllowEdit] = useState(false);
   const [dialogue, setDialogue] = useState(false);
+  const [query, setQuery] = useState("");
+
+  const getVisibleNotes = () => {
+    return notes.filter(
+      (note) => note.text.includes(query) || note.title.includes(query)
+    );
+  };
+
+  const visibleNotes = getVisibleNotes();
 
   const onAddNote = () => {
     const newNote = {
       id: uuid(),
       title: "",
-      meta: Date.now(),
+      meta: Date.now(), //parsing is done in the component for flexibility
       text: "",
     };
 
@@ -26,7 +35,7 @@ function App() {
   };
 
   const onDeleteNote = (selectedNote) => {
-    setDialogue(true);
+    setDialogue(true); //confirmation of deletion
   };
 
   const handleDeleteNote = (selectedNote) => {
@@ -47,7 +56,7 @@ function App() {
   };
 
   const getSelectedNote = () => {
-    return notes.find((note) => note.id === selectedNote);
+    return notes.find((note) => note.id === selectedNote); //selecting active note to pass to workspace
   };
 
   return (
@@ -58,10 +67,11 @@ function App() {
         selectedNote={selectedNote}
         allowEdit={allowEdit}
         setAllowEdit={setAllowEdit}
+        setQuery={setQuery}
       />
       <main className="main-content">
         <Sidebar
-          notes={notes}
+          notes={visibleNotes}
           selectedNote={selectedNote}
           setSelectedNote={setSelectedNote}
           setAllowEdit={setAllowEdit}

@@ -11,6 +11,7 @@ const Header = ({
   selectedNote,
   allowEdit,
   setAllowEdit,
+  setQuery,
 }) => {
   return (
     <header className="header">
@@ -35,7 +36,12 @@ const Header = ({
           <MdEditNote />
         </button>
       </div>
-      <input className="searchbar" type="text" placeholder="Search"></input>
+      <input
+        className="searchbar"
+        type="text"
+        placeholder="Search"
+        onChange={(event) => setQuery(event.target.value)}
+      />
     </header>
   );
 };
