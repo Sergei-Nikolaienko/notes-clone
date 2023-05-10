@@ -24,7 +24,7 @@ function App() {
       .then((notes) => {
         setNotes(notes);
       });
-  }, [db]);
+  }, []);
 
   const getVisibleNotes = () => {
     return notes.filter(
