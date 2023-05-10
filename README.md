@@ -1,7 +1,6 @@
-- [DEMO LINK](https://notes-clone.vercel.app/)
-
 # Notes Clone
 This project is a simple web-based notes app that allows users to create, read, update, and delete notes. It was built using React, Localbase, and Bootstrap.
+- [DEMO LINK](https://notes-clone.vercel.app/)
 
 # Features
 - Create notes with a title and body.
