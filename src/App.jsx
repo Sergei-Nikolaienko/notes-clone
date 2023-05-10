@@ -16,7 +16,7 @@ function App() {
   const [dialogue, setDialogue] = useState(false);
   const [query, setQuery] = useState("");
 
-  let db = new Localbase("db");
+  const db = useMemo(() => new Localbase("db"), []);
 
   useEffect(() => {
     db.collection("notes")
@@ -24,7 +24,7 @@ function App() {
       .then((notes) => {
         setNotes(notes);
       });
-  }, []);
+  }, [db]);
 
   const getVisibleNotes = () => {
     return notes.filter(
@@ -42,7 +42,11 @@ function App() {
       text: "",
     };
 
-    db.collection("notes").add(newNote);
+    db.collection("notes")
+      .add(newNote)
+      .then(() => {
+        setNotes([...notes, newNote]);
+      });
   };
 
   const onDeleteNote = () => {
@@ -50,12 +54,24 @@ function App() {
   };
 
   const handleDeleteNote = (selectedNote) => {
-    db.collection("notes").doc({ id: selectedNote }).delete();
+    db.collection("notes")
+      .doc({ id: selectedNote })
+      .delete()
+      .then(() => {
+        setNotes(notes.filter((note) => note.id !== selectedNote));
+      });
     setSelectedNote(false);
   };
 
   const onEditNote = (editedNote) => {
-    // db.collection("notes").doc({ id: editedNote.id }).set(editedNote);
+    db.collection("notes").doc({ id: editedNote.id }).set(editedNote);
+    const updatedNotes = notes.map((note) => {
+      if (note.id === editedNote.id) {
+        return editedNote;
+      }
+      return note;
+    });
+    setNotes(updatedNotes);
   };
 
   const getSelectedNote = () => {
